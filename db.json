@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "f6ba",
+      "firstName": "Ionut",
+      "lastName": "Parasca",
+      "email": "ionutparasca@gmail.com",
+      "password": "parola"
+    }
+  ]
+}

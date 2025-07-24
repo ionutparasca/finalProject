@@ -6,15 +6,41 @@ const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const userData = {
       firstName,
       lastName,
       email,
       password,
     };
-    console.log("Register data:", userData);
+
+    try {
+      const response = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        const createdUser = await response.json();
+        console.log("User registered:", createdUser);
+        alert("Înregistrare reușită!");
+        // opțional: resetare formular
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+      } else {
+        alert("Eroare la înregistrare.");
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      alert("A apărut o eroare. Încearcă din nou.");
+    }
   };
 
   return (
