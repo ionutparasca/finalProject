@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useUser } from "../contexts/UserContext";
 
 const LoginPage: React.FC = () => {
+  const { login } = useUser();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,17 +18,14 @@ const LoginPage: React.FC = () => {
 
       if (users.length > 0) {
         const user = users[0];
-
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-
+        login(user);
         alert("Autentificare reușită!");
-        console.log("User logat:", user);
       } else {
         alert("Email sau parolă greșită.");
       }
     } catch (error) {
       console.error("Eroare la autentificare:", error);
-      alert("A apărut o eroare. Încearcă din nou.");
+      alert("A apărut o eroare.");
     }
   };
 
@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Parolă:</label>
           <input
             type="password"
             value={password}
