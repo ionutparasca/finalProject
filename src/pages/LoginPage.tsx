@@ -14,8 +14,12 @@ const LoginPage: React.FC = () => {
       const users = await response.json();
 
       if (users.length > 0) {
+        const user = users[0];
+
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+
         alert("Autentificare reușită!");
-        console.log("User logat:", users[0]);
+        console.log("User logat:", user);
       } else {
         alert("Email sau parolă greșită.");
       }
