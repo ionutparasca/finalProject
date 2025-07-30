@@ -5,18 +5,21 @@ export type User = {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
 };
 
 type UserContextType = {
   user: User | null;
   login: (user: User) => void;
   logout: () => void;
+  updateUser: (updatedUser: User) => void;
 };
 
 const UserContext = createContext<UserContextType>({
   user: null,
   login: () => {},
   logout: () => {},
+  updateUser: () => {},
 });
 
 export const useUser = () => useContext(UserContext);
@@ -43,8 +46,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(null);
   };
 
+  const updateUser = (updatedUser: User) => {
+    localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </UserContext.Provider>
   );
