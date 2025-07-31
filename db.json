@@ -7,5 +7,15 @@
       "email": "ionutparasca@gmail.com",
       "password": "parola"
     }
+  ],
+  "helpRequests": [
+    {
+      "id": "888fdfbe-96b8-459f-9637-75e6d2e00aff",
+      "title": "test",
+      "description": "primul test",
+      "category": "Other",
+      "createdAt": "2025-07-30T16:18:35.736Z",
+      "createdBy": "f6ba"
+    }
   ]
 }

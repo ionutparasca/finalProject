@@ -12,7 +12,8 @@ type UserContextType = {
   user: User | null;
   login: (user: User) => void;
   logout: () => void;
-  updateUser: (updatedUser: User) => void;
+  updateUser: (user: User) => void;
+  loading: boolean;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -20,6 +21,7 @@ const UserContext = createContext<UserContextType>({
   login: () => {},
   logout: () => {},
   updateUser: () => {},
+  loading: true,
 });
 
 export const useUser = () => useContext(UserContext);
@@ -28,12 +30,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("loggedInUser");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    setLoading(false);
   }, []);
 
   const login = (user: User) => {
@@ -52,7 +56,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout, updateUser }}>
+    <UserContext.Provider value={{ user, login, logout, updateUser, loading }}>
       {children}
     </UserContext.Provider>
   );

@@ -1,50 +1,46 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import NewHelpRequestPage from "./pages/NewHelpRequestPage";
 
 function App() {
-  const { user, logout } = useUser();
+  const { user, logout, loading } = useUser();
+
+  if (loading) return null; // asta oprește afișarea până se verifică userul
 
   return (
-    <Router>
+    <BrowserRouter>
       <div>
-        <nav style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-          {!user && (
+        <nav>
+          {user ? (
             <>
-              <Link to="/">Login</Link>
-              <Link to="/register">Register</Link>
-            </>
-          )}
-          {user && (
-            <>
-              <Link to="/profile">Profil</Link>
-              {/* aici vom adăuga ulterior: <Link to="/help">Cereri</Link> */}
               <button onClick={logout}>Logout</button>
+              <a href="/profile">Profil</a>
+              <a href="/new">Cerere nouă</a>
+            </>
+          ) : (
+            <>
+              <a href="/login">Login</a>
+              <a href="/register">Register</a>
             </>
           )}
         </nav>
 
         <Routes>
-          <Route
-            path="/"
-            element={!user ? <LoginPage /> : <Navigate to="/profile" />}
-          />
+          {!user && <Route path="*" element={<Navigate to="/login" />} />}
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/profile"
-            element={user ? <ProfilePage /> : <Navigate to="/" />}
-          />
+          {user && (
+            <>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/new" element={<NewHelpRequestPage />} />
+            </>
+          )}
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

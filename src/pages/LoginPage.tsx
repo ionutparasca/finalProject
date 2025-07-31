@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useUser } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const { login } = useUser();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,20 +13,21 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
+      const res = await fetch(
         `http://localhost:3001/users?email=${email}&password=${password}`
       );
-      const users = await response.json();
+      const data = await res.json();
 
-      if (users.length > 0) {
-        const user = users[0];
-        login(user);
-        alert("Autentificare reușită!");
-      } else {
-        alert("Email sau parolă greșită.");
+      if (data.length === 0) {
+        alert("Email sau parolă greșite.");
+        return;
       }
-    } catch (error) {
-      console.error("Eroare la autentificare:", error);
+
+      login(data[0]);
+      alert("Autentificare reușită!");
+      navigate("/profile");
+    } catch (err) {
+      console.error(err);
       alert("A apărut o eroare.");
     }
   };
