@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import NewHelpRequestPage from "./pages/NewHelpRequestPage";
+import HelpRequestsListPage from "./pages/HelpRequestsListPage";
 
 function App() {
-  const { user, logout, loading } = useUser();
-
-  if (loading) return null; // asta oprește afișarea până se verifică userul
+  const { user, logout } = useUser();
 
   return (
     <BrowserRouter>
@@ -17,26 +16,31 @@ function App() {
           {user ? (
             <>
               <button onClick={logout}>Logout</button>
-              <a href="/profile">Profil</a>
-              <a href="/new">Cerere nouă</a>
+              <Link to="/profile">Profil</Link>
+              <Link to="/new">Cerere nouă</Link>
+              <Link to="/requests">Cereri</Link>
             </>
           ) : (
             <>
-              <a href="/login">Login</a>
-              <a href="/register">Register</a>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
             </>
           )}
         </nav>
 
         <Routes>
-          {!user && <Route path="*" element={<Navigate to="/login" />} />}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          {user && (
+
+          {user ? (
             <>
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/new" element={<NewHelpRequestPage />} />
+              <Route path="/requests" element={<HelpRequestsListPage />} />
+              <Route path="*" element={<Navigate to="/profile" />} />
             </>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
           )}
         </Routes>
       </div>

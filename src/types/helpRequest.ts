@@ -2,7 +2,10 @@ export type HelpRequest = {
   id: string;
   title: string;
   description: string;
-  category: "Food" | "Transport" | "Housing" | "Other";
+  category: string;
   createdAt: string;
-  createdBy: string; // userId
+  createdBy: string;
+  userId: string;
+  userFirstName: string;
+  userLastName: string;
 };

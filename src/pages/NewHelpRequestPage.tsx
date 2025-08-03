@@ -13,13 +13,18 @@ const NewHelpRequestPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!user) return;
+
     const newRequest: HelpRequest = {
       id: uuidv4(),
       title,
       description,
-      category: category as HelpRequest["category"],
+      category,
       createdAt: new Date().toISOString(),
-      createdBy: user!.id,
+      createdBy: `${user.firstName} ${user.lastName}`,
+      userId: user.id,
+      userFirstName: user.firstName,
+      userLastName: user.lastName,
     };
 
     try {
