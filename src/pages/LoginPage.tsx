@@ -1,34 +1,66 @@
 import React, { useState } from "react";
-import { useUser } from "../contexts/UserContext";
+import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
+
+const schema = z.object({
+  email: z.string().email("Email invalid"),
+  password: z.string().min(6, "Parola trebuie să aibă cel puțin 6 caractere"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const LoginPage: React.FC = () => {
-  const { login } = useUser();
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {}
+  );
   const navigate = useNavigate();
+  const { login } = useUser();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const result = schema.safeParse(formData);
+    if (!result.success) {
+      const zodErrors = result.error as z.ZodError;
+      const newErrors: Partial<Record<keyof FormData, string>> = {};
+
+      zodErrors.issues.forEach((err) => {
+        const field = err.path[0] as keyof FormData;
+        newErrors[field] = err.message;
+      });
+
+      setErrors(newErrors);
+      return;
+    }
+
     try {
       const res = await fetch(
-        `http://localhost:3001/users?email=${email}&password=${password}`
+        `http://localhost:3001/users?email=${formData.email}`
       );
       const data = await res.json();
+      const user = data[0];
 
-      if (data.length === 0) {
-        alert("Email sau parolă greșite.");
+      if (!user || user.password !== formData.password) {
+        alert("Email sau parolă incorectă.");
         return;
       }
 
-      login(data[0]);
+      login(user);
       alert("Autentificare reușită!");
       navigate("/profile");
     } catch (err) {
       console.error(err);
-      alert("A apărut o eroare.");
+      alert("A apărut o eroare la autentificare.");
     }
   };
 
@@ -39,22 +71,24 @@ const LoginPage: React.FC = () => {
         <div>
           <label>Email:</label>
           <input
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            value={formData.email}
+            onChange={handleChange}
           />
+          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
         <div>
           <label>Parolă:</label>
           <input
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            value={formData.password}
+            onChange={handleChange}
           />
+          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Autentificare</button>
       </form>
     </div>
   );

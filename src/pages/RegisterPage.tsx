@@ -1,93 +1,114 @@
 import React, { useState } from "react";
+import { z } from "zod";
+
+const schema = z.object({
+  firstName: z
+    .string()
+    .min(2, "Prenumele trebuie să aibă cel puțin 2 caractere"),
+  lastName: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
+  email: z.string().email("Email invalid"),
+  password: z.string().min(6, "Parola trebuie să aibă cel puțin 6 caractere"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const RegisterPage: React.FC = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {}
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const userData = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
+    const result = schema.safeParse(formData);
 
-    try {
-      const response = await fetch("http://localhost:3001/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+    if (!result.success) {
+      const zodErrors: Partial<Record<keyof FormData, string>> = {};
+
+      result.error.issues.forEach((err: z.ZodIssue) => {
+        const field = err.path[0] as keyof FormData;
+        zodErrors[field] = err.message;
       });
 
-      if (response.ok) {
-        const createdUser = await response.json();
-        console.log("User registered:", createdUser);
-        alert("Înregistrare reușită!");
-        // opțional: resetare formular
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-      } else {
-        alert("Eroare la înregistrare.");
-      }
-    } catch (error) {
-      console.error("Register error:", error);
-      alert("A apărut o eroare. Încearcă din nou.");
+      setErrors(zodErrors);
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: crypto.randomUUID(), ...formData }),
+      });
+
+      if (!res.ok) throw new Error("Eroare la înregistrare.");
+
+      alert("Înregistrare reușită!");
+      setFormData({ firstName: "", lastName: "", email: "", password: "" });
+      setErrors({});
+    } catch (err) {
+      console.error(err);
+      alert("A apărut o eroare.");
     }
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Înregistrare</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>First Name:</label>
+          <label>Prenume:</label>
           <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
           />
+          {errors.firstName && (
+            <p style={{ color: "red" }}>{errors.firstName}</p>
+          )}
         </div>
-
         <div>
-          <label>Last Name:</label>
+          <label>Nume:</label>
           <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
           />
+          {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
         </div>
-
         <div>
           <label>Email:</label>
           <input
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            value={formData.email}
+            onChange={handleChange}
           />
+          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
-
         <div>
-          <label>Password:</label>
+          <label>Parolă:</label>
           <input
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            value={formData.password}
+            onChange={handleChange}
           />
+          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         </div>
-
-        <button type="submit">Register</button>
+        <button type="submit">Înregistrează-te</button>
       </form>
     </div>
   );

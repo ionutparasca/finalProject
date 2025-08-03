@@ -13,6 +13,13 @@
       "lastName": "User",
       "email": "seconduser@gmail.com",
       "password": "parola1"
+    },
+    {
+      "id": "f8db2dc0-7991-4cc2-9efb-5d3d61e9739b",
+      "firstName": "Alt ",
+      "lastName": "User",
+      "email": "altUser@gmail.com",
+      "password": "altaparola"
     }
   ],
   "helpRequests": [
@@ -59,6 +66,28 @@
       "userId": "caf3",
       "userFirstName": "Second",
       "userLastName": "User"
+    },
+    {
+      "id": "dec9792e-40d0-4066-8d57-5acdf22c7ed6",
+      "title": "alta cerere",
+      "description": "dsats",
+      "category": "Housing",
+      "createdAt": "2025-08-03T15:58:05.530Z",
+      "createdBy": "Alt  User",
+      "userId": "f8db2dc0-7991-4cc2-9efb-5d3d61e9739b",
+      "userFirstName": "Alt ",
+      "userLastName": "User"
+    },
+    {
+      "id": "2dfcef6d-3ecb-4b1c-98e2-8a35120e2536",
+      "title": "Alimente ",
+      "description": "am nevoie de lapte oua faina",
+      "category": "Food",
+      "createdAt": "2025-08-03T17:17:58.537Z",
+      "createdBy": "Ionut Florin Parasca",
+      "userId": "f6ba",
+      "userFirstName": "Ionut Florin",
+      "userLastName": "Parasca"
     }
   ]
 }
