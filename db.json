@@ -6,17 +6,16 @@
       "lastName": "Parasca",
       "email": "ionutparasca@gmail.com",
       "password": "parola"
+    },
+    {
+      "id": "caf3",
+      "firstName": "Second",
+      "lastName": "User",
+      "email": "seconduser@gmail.com",
+      "password": "parola1"
     }
   ],
   "helpRequests": [
-    {
-      "id": "888fdfbe-96b8-459f-9637-75e6d2e00aff",
-      "title": "test",
-      "description": "primul test editat",
-      "category": "Other",
-      "createdAt": "2025-07-30T16:18:35.736Z",
-      "createdBy": "f6ba"
-    },
     {
       "id": "7c74005a-5a59-40a5-a49e-55a75434663e",
       "title": "a doua cerere de test",
@@ -38,6 +37,28 @@
       "userId": "f6ba",
       "userFirstName": "Ionut Florin",
       "userLastName": "Parasca"
+    },
+    {
+      "id": "51a725eb-1d03-465c-a51d-25cc5274bf9b",
+      "title": "secondUser cerere noua",
+      "description": "prima cerere",
+      "category": "Transport",
+      "createdAt": "2025-08-03T15:31:01.412Z",
+      "createdBy": "Second User",
+      "userId": "caf3",
+      "userFirstName": "Second",
+      "userLastName": "User"
+    },
+    {
+      "id": "f737eda5-a316-404b-86ff-c37fc5208f49",
+      "title": "a doua cerere Second User",
+      "description": "a doua cerere second User editata",
+      "category": "Other",
+      "createdAt": "2025-08-03T15:31:39.438Z",
+      "createdBy": "Second User",
+      "userId": "caf3",
+      "userFirstName": "Second",
+      "userLastName": "User"
     }
   ]
 }
