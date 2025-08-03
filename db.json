@@ -12,7 +12,7 @@
     {
       "id": "888fdfbe-96b8-459f-9637-75e6d2e00aff",
       "title": "test",
-      "description": "primul test",
+      "description": "primul test editat",
       "category": "Other",
       "createdAt": "2025-07-30T16:18:35.736Z",
       "createdBy": "f6ba"
@@ -30,7 +30,7 @@
     },
     {
       "id": "3838fc51-faa7-4414-8293-08ccfc542684",
-      "title": "a treia cerere ",
+      "title": "a treia cerere  editata",
       "description": "a treia cerere",
       "category": "Transport",
       "createdAt": "2025-07-31T15:12:10.182Z",

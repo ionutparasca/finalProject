@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import NewHelpRequestPage from "./pages/NewHelpRequestPage";
 import HelpRequestsListPage from "./pages/HelpRequestsListPage";
+import MyHelpRequestsPage from "./pages/MyHelpRequestsPage";
 
 function App() {
   const { user, logout } = useUser();
@@ -19,6 +20,7 @@ function App() {
               <Link to="/profile">Profil</Link>
               <Link to="/new">Cerere nouă</Link>
               <Link to="/requests">Cereri</Link>
+              <Link to="/my-requests">Cererile Mele</Link>
             </>
           ) : (
             <>
@@ -31,6 +33,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/my-requests" element={<MyHelpRequestsPage />} />
 
           {user ? (
             <>
