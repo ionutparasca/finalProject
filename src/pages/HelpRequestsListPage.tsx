@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { HelpRequest } from "../types/helpRequest";
+import { Link } from "react-router-dom";
 
 const HelpRequestsListPage: React.FC = () => {
   const [requests, setRequests] = useState<HelpRequest[]>([]);
@@ -41,6 +42,11 @@ const HelpRequestsListPage: React.FC = () => {
               <strong>Trimis de:</strong> {request.userFirstName}{" "}
               {request.userLastName}
             </p>
+
+            {/* Butonul de detalii */}
+            <Link to={`/help-requests/${request.id}`}>
+              <button>Vezi detalii</button>
+            </Link>
           </li>
         ))}
       </ul>

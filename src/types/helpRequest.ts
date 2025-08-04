@@ -1,3 +1,10 @@
+export type Comment = {
+  id: string;
+  userId: string;
+  userName: string;
+  text: string;
+};
+
 export type HelpRequest = {
   id: string;
   title: string;
@@ -8,4 +15,5 @@ export type HelpRequest = {
   userId: string;
   userFirstName: string;
   userLastName: string;
+  comments?: Comment[];
 };

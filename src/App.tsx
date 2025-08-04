@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import NewHelpRequestPage from "./pages/NewHelpRequestPage";
 import HelpRequestsListPage from "./pages/HelpRequestsListPage";
 import MyHelpRequestsPage from "./pages/MyHelpRequestsPage";
+import { HelpRequestDetailsPage } from "./pages/HelpRequestDetailsPage";
 
 function App() {
   const { user, logout } = useUser();
@@ -34,6 +35,10 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/my-requests" element={<MyHelpRequestsPage />} />
+          <Route
+            path="/help-requests/:id"
+            element={<HelpRequestDetailsPage />}
+          />
 
           {user ? (
             <>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import type { HelpRequest } from "../types/helpRequest";
+import { Link } from "react-router-dom";
 
 const MyHelpRequestsPage: React.FC = () => {
   const { user } = useUser();
@@ -96,6 +97,9 @@ const MyHelpRequestsPage: React.FC = () => {
               ) : (
                 <>
                   <strong>{req.title}</strong> - {req.description}
+                  <Link to={`/help-requests/${req.id}`}>
+                    <button>Vezi detalii</button>
+                  </Link>
                   <button onClick={() => handleEdit(req)}>Editează</button>
                   <button onClick={() => handleDelete(req.id)}>Șterge</button>
                 </>

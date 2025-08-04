@@ -89,5 +89,57 @@
       "userFirstName": "Ionut Florin",
       "userLastName": "Parasca"
     }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "requestId": "2dfcef6d-3ecb-4b1c-98e2-8a35120e2536",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "Pot să aduc eu alimentele mâine."
+    },
+    {
+      "id": "67c2",
+      "requestId": null,
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "sadsd"
+    },
+    {
+      "id": "07cf",
+      "requestId": null,
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "dsasfvafvasdgvasgv"
+    },
+    {
+      "id": "e6ea",
+      "requestId": null,
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "alt comentariu . Sa vad daca se trimite la toate cererile\n"
+    },
+    {
+      "id": "ed19",
+      "requestId": "3838fc51-faa7-4414-8293-08ccfc542684",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "alt comentariu de test \n"
+    },
+    {
+      "id": "fe71",
+      "requestId": "7c74005a-5a59-40a5-a49e-55a75434663e",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "alt comentariu de test cu enter"
+    },
+    {
+      "id": "f8e2",
+      "requestId": "7c74005a-5a59-40a5-a49e-55a75434663e",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "dsad asgd ga ",
+      "createdAt": "2025-08-04T15:33:16.650Z"
+    }
   ]
 }
