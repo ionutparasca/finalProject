@@ -3,6 +3,7 @@ export type Comment = {
   requestId: string;
   authorId: string;
   authorName: string;
+  authorImage?: string;
   text: string;
   createdAt: string;
 };

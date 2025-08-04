@@ -1,63 +1,42 @@
 import React, { useState } from "react";
-import { z } from "zod";
-
-const schema = z.object({
-  firstName: z
-    .string()
-    .min(2, "Prenumele trebuie să aibă cel puțin 2 caractere"),
-  lastName: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
-  email: z.string().email("Email invalid"),
-  password: z.string().min(6, "Parola trebuie să aibă cel puțin 6 caractere"),
-});
-
-type FormData = z.infer<typeof schema>;
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const RegisterPage: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
-    {}
-  );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = schema.safeParse(formData);
+    const defaultAvatar = `https://api.dicebear.com/8.x/fun-emoji/svg?seed=${firstName}${lastName}`;
 
-    if (!result.success) {
-      const zodErrors: Partial<Record<keyof FormData, string>> = {};
-
-      result.error.issues.forEach((err: z.ZodIssue) => {
-        const field = err.path[0] as keyof FormData;
-        zodErrors[field] = err.message;
-      });
-
-      setErrors(zodErrors);
-      return;
-    }
+    const newUser = {
+      id: uuidv4(),
+      firstName,
+      lastName,
+      email,
+      password,
+      profileImage: profileImage || defaultAvatar, // 👈 aici folosim avatar implicit dacă e gol
+    };
 
     try {
       const res = await fetch("http://localhost:3001/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: crypto.randomUUID(), ...formData }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
       });
 
       if (!res.ok) throw new Error("Eroare la înregistrare.");
 
-      alert("Înregistrare reușită!");
-      setFormData({ firstName: "", lastName: "", email: "", password: "" });
-      setErrors({});
+      alert("Cont creat cu succes!");
+      navigate("/login");
     } catch (err) {
       console.error(err);
       alert("A apărut o eroare.");
@@ -66,49 +45,52 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Înregistrare</h1>
+      <h2>Înregistrare</h2>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Prenume:</label>
           <input
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
           />
-          {errors.firstName && (
-            <p style={{ color: "red" }}>{errors.firstName}</p>
-          )}
         </div>
         <div>
           <label>Nume:</label>
           <input
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
           />
-          {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
         </div>
         <div>
           <label>Email:</label>
           <input
-            name="email"
             type="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
         <div>
           <label>Parolă:</label>
           <input
-            name="password"
             type="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         </div>
-        <button type="submit">Înregistrează-te</button>
+        <div>
+          <label>URL poză profil:</label>
+          <input
+            value={profileImage}
+            onChange={(e) => setProfileImage(e.target.value)}
+            placeholder="https://i.pravatar.cc/150?u=ionut"
+          />
+        </div>
+        <button type="submit">Creează cont</button>
       </form>
     </div>
   );

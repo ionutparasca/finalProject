@@ -9,6 +9,7 @@ const ProfilePage: React.FC = () => {
   const [lastName, setLastName] = useState(user?.lastName || "");
   const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState(user?.password || "");
+  const [profileImage, setProfileImage] = useState(user?.profileImage || "");
 
   useEffect(() => {
     if (user) {
@@ -16,6 +17,7 @@ const ProfilePage: React.FC = () => {
       setLastName(user.lastName);
       setEmail(user.email);
       setPassword(user.password);
+      setProfileImage(user.profileImage || "");
     }
   }, [user]);
 
@@ -29,6 +31,7 @@ const ProfilePage: React.FC = () => {
       lastName,
       email,
       password,
+      profileImage,
     };
 
     try {
@@ -42,7 +45,7 @@ const ProfilePage: React.FC = () => {
 
       if (!res.ok) throw new Error("Eroare la actualizarea profilului.");
 
-      updateUser(updatedUser); // ✅ fără eroare acum
+      updateUser(updatedUser);
       alert("Profil actualizat cu succes!");
     } catch (err) {
       console.error(err);
@@ -57,6 +60,15 @@ const ProfilePage: React.FC = () => {
   return (
     <div>
       <h2>Profilul Meu</h2>
+
+      {profileImage && (
+        <img
+          src={profileImage}
+          alt="Poza de profil"
+          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+        />
+      )}
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Prenume:</label>
@@ -82,6 +94,14 @@ const ProfilePage: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>URL poză profil:</label>
+          <input
+            value={profileImage}
+            onChange={(e) => setProfileImage(e.target.value)}
+            placeholder="https://i.pravatar.cc/150?u=ionut"
           />
         </div>
         <button type="submit">Salvează</button>

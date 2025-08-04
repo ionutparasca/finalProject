@@ -41,10 +41,11 @@ export function HelpRequestDetailsPage() {
   const handleAddComment = async () => {
     if (!newComment.trim() || !user) return;
 
-    const commentObj = {
-      requestId: id,
+    const commentObj: Omit<Comment, "id"> = {
+      requestId: id!,
       authorId: user.id,
       authorName: `${user.firstName} ${user.lastName}`,
+      authorImage: user.profileImage || "",
       text: newComment,
       createdAt: new Date().toISOString(),
     };
@@ -98,23 +99,39 @@ export function HelpRequestDetailsPage() {
       ) : (
         <ul>
           {comments.map((comment) => (
-            <li key={comment.id}>
-              <p>
-                <strong>{comment.authorName}</strong> —{" "}
-                <small>
-                  {new Date(comment.createdAt).toLocaleString("ro-RO", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                  })}
-                </small>
-                <br />
-                {comment.text}
-              </p>
-              {comment.authorId === user?.id && (
-                <button onClick={() => handleDeleteComment(comment.id)}>
-                  🗑️ Șterge
-                </button>
+            <li
+              key={comment.id}
+              style={{
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              {comment.authorImage && (
+                <img
+                  src={comment.authorImage}
+                  alt="avatar"
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                />
               )}
+              <div>
+                <p style={{ marginBottom: "0.25rem" }}>
+                  <strong>{comment.authorName}</strong> —{" "}
+                  <small>
+                    {new Date(comment.createdAt).toLocaleString("ro-RO", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}
+                  </small>
+                </p>
+                <p>{comment.text}</p>
+                {comment.authorId === user?.id && (
+                  <button onClick={() => handleDeleteComment(comment.id)}>
+                    🗑️ Șterge
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>

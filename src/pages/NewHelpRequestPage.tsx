@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import type { HelpRequest } from "../types/helpRequest";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const NewHelpRequestPage: React.FC = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,10 +38,7 @@ const NewHelpRequestPage: React.FC = () => {
 
       if (!res.ok) throw new Error("Eroare la trimiterea cererii.");
 
-      alert("Cerere trimisă cu succes!");
-      setTitle("");
-      setDescription("");
-      setCategory("Food");
+      navigate("/my-requests"); // 🔁 Redirecționare după trimitere
     } catch (err) {
       console.error(err);
       alert("A apărut o eroare.");
@@ -73,12 +72,25 @@ const NewHelpRequestPage: React.FC = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            required
           >
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Housing">Housing</option>
-            <option value="Other">Other</option>
+            <option value="food">🍞 Alimente și gătit</option>
+            <option value="transport">🚗 Transport și deplasări</option>
+            <option value="housing">🏠 Cazare și locuință</option>
+            <option value="health">💊 Sănătate și medicamente</option>
+            <option value="companionship">
+              🤝 Însoțire / Ajutor emoțional
+            </option>
+            <option value="childcare">👶 Îngrijire copii</option>
+            <option value="pets">🐾 Ajutor cu animale</option>
+            <option value="paperwork">📝 Acte și documente</option>
+            <option value="technical">💻 Ajutor tehnic</option>
+            <option value="other">❓ Alt tip de ajutor</option>
           </select>
+          <p style={{ fontSize: "0.9em", color: "gray" }}>
+            Alege categoria care descrie cel mai bine tipul de ajutor de care ai
+            nevoie.
+          </p>
         </div>
         <button type="submit">Trimite</button>
       </form>

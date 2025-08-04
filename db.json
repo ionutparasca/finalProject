@@ -5,21 +5,40 @@
       "firstName": "Ionut Florin",
       "lastName": "Parasca",
       "email": "ionutparasca@gmail.com",
-      "password": "parola"
+      "password": "parola",
+      "profileImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=ionut"
     },
     {
       "id": "caf3",
       "firstName": "Second",
       "lastName": "User",
       "email": "seconduser@gmail.com",
-      "password": "parola1"
+      "password": "parola1",
+      "profileImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=second"
     },
     {
       "id": "f8db2dc0-7991-4cc2-9efb-5d3d61e9739b",
       "firstName": "Alt ",
       "lastName": "User",
       "email": "altUser@gmail.com",
-      "password": "altaparola"
+      "password": "altaparola",
+      "profileImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=alt"
+    },
+    {
+      "id": "42fb6ffc-cca7-4534-84cf-aeb4f8187e09",
+      "firstName": "unAltUser",
+      "lastName": "UnAltNume",
+      "email": "unaltuser@gmail.com",
+      "password": "onouaparola",
+      "profileImage": ""
+    },
+    {
+      "id": "8f9701db-fd8e-4ff1-bf34-f386adeba1e6",
+      "firstName": "sda",
+      "lastName": "das fd",
+      "email": "fasfa@gmail.com",
+      "password": "fasfafas fas ",
+      "profileImage": "https://api.dicebear.com/8.x/fun-emoji/svg?seed=sdadas fd"
     }
   ],
   "helpRequests": [
@@ -99,13 +118,6 @@
       "text": "Pot să aduc eu alimentele mâine."
     },
     {
-      "id": "67c2",
-      "requestId": null,
-      "authorId": "f6ba",
-      "authorName": "Ionut Florin Parasca",
-      "text": "sadsd"
-    },
-    {
       "id": "07cf",
       "requestId": null,
       "authorId": "f6ba",
@@ -140,6 +152,32 @@
       "authorName": "Ionut Florin Parasca",
       "text": "dsad asgd ga ",
       "createdAt": "2025-08-04T15:33:16.650Z"
+    },
+    {
+      "id": "e719",
+      "requestId": "3838fc51-faa7-4414-8293-08ccfc542684",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "text": "sd e ef as as",
+      "createdAt": "2025-08-04T16:59:45.275Z"
+    },
+    {
+      "id": "84aa",
+      "requestId": "7c74005a-5a59-40a5-a49e-55a75434663e",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "authorImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=ionut",
+      "text": "dssd grhyjrsnz",
+      "createdAt": "2025-08-04T17:02:31.606Z"
+    },
+    {
+      "id": "0dda",
+      "requestId": "7c74005a-5a59-40a5-a49e-55a75434663e",
+      "authorId": "42fb6ffc-cca7-4534-84cf-aeb4f8187e09",
+      "authorName": "unAltUser UnAltNume",
+      "authorImage": "",
+      "text": "dgfhfdeh",
+      "createdAt": "2025-08-04T17:21:19.315Z"
     }
   ]
 }
