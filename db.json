@@ -107,6 +107,50 @@
       "userId": "f6ba",
       "userFirstName": "Ionut Florin",
       "userLastName": "Parasca"
+    },
+    {
+      "id": "fa494a90-2553-4e81-b0f4-3eab7080dfa8",
+      "title": "df dfs dg S",
+      "description": "gdg S gDSFhg dfHG f ",
+      "category": "Housing",
+      "createdAt": "2025-08-04T18:31:29.781Z",
+      "createdBy": "Ionut Florin Parasca",
+      "userId": "f6ba",
+      "userFirstName": "Ionut Florin",
+      "userLastName": "Parasca"
+    },
+    {
+      "id": "8de5dcd4-8bcf-43dc-9c73-4f33c21eb88e",
+      "title": "Test final",
+      "description": "descriere finala",
+      "category": "Housing",
+      "createdAt": "2025-08-06T15:42:47.095Z",
+      "createdBy": "Ionut Florin Parasca",
+      "userId": "f6ba",
+      "userFirstName": "Ionut Florin",
+      "userLastName": "Parasca"
+    },
+    {
+      "id": "40ae9e38-8b62-46b0-acc9-4bce66c93ae1",
+      "title": "sdadgs gsdg sdg ds GDS  GFDS",
+      "description": "d GFSDFDS gfds FD S",
+      "category": "Health",
+      "createdAt": "2025-08-06T15:49:34.470Z",
+      "createdBy": "Ionut Florin Parasca",
+      "userId": "f6ba",
+      "userFirstName": "Ionut Florin",
+      "userLastName": "Parasca"
+    },
+    {
+      "id": "470b5b71-dea8-4884-9c12-5f73fd482112",
+      "title": "Cerere 06/08/2025",
+      "description": "cerere de test",
+      "category": "Education",
+      "createdAt": "2025-08-06T15:50:46.185Z",
+      "createdBy": "Ionut Florin Parasca",
+      "userId": "f6ba",
+      "userFirstName": "Ionut Florin",
+      "userLastName": "Parasca"
     }
   ],
   "comments": [
@@ -116,34 +160,6 @@
       "authorId": "f6ba",
       "authorName": "Ionut Florin Parasca",
       "text": "Pot să aduc eu alimentele mâine."
-    },
-    {
-      "id": "07cf",
-      "requestId": null,
-      "authorId": "f6ba",
-      "authorName": "Ionut Florin Parasca",
-      "text": "dsasfvafvasdgvasgv"
-    },
-    {
-      "id": "e6ea",
-      "requestId": null,
-      "authorId": "f6ba",
-      "authorName": "Ionut Florin Parasca",
-      "text": "alt comentariu . Sa vad daca se trimite la toate cererile\n"
-    },
-    {
-      "id": "ed19",
-      "requestId": "3838fc51-faa7-4414-8293-08ccfc542684",
-      "authorId": "f6ba",
-      "authorName": "Ionut Florin Parasca",
-      "text": "alt comentariu de test \n"
-    },
-    {
-      "id": "fe71",
-      "requestId": "7c74005a-5a59-40a5-a49e-55a75434663e",
-      "authorId": "f6ba",
-      "authorName": "Ionut Florin Parasca",
-      "text": "alt comentariu de test cu enter"
     },
     {
       "id": "f8e2",
@@ -178,6 +194,33 @@
       "authorImage": "",
       "text": "dgfhfdeh",
       "createdAt": "2025-08-04T17:21:19.315Z"
+    },
+    {
+      "id": "b59c",
+      "requestId": "fa494a90-2553-4e81-b0f4-3eab7080dfa8",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "authorImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=ionut",
+      "text": "dsgf",
+      "createdAt": "2025-08-04T18:31:45.575Z"
+    },
+    {
+      "id": "92ab",
+      "requestId": "40ae9e38-8b62-46b0-acc9-4bce66c93ae1",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "authorImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=ionut",
+      "text": "test final",
+      "createdAt": "2025-08-06T15:49:54.757Z"
+    },
+    {
+      "id": "b351",
+      "requestId": "8de5dcd4-8bcf-43dc-9c73-4f33c21eb88e",
+      "authorId": "f6ba",
+      "authorName": "Ionut Florin Parasca",
+      "authorImage": "https://api.dicebear.com/7.x/fun-emoji/svg?seed=ionut",
+      "text": "comentariu",
+      "createdAt": "2025-08-06T15:51:59.567Z"
     }
   ]
 }

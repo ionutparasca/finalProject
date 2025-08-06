@@ -1,0 +1,52 @@
+/* Header styles */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+}
+
+.container-header {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a,
+.nav-links button {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  text-decoration: underline;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #f0f0f0;
+  padding: 20px 10px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-top: 40px;
+}

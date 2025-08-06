@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
 import type { User } from "../contexts/UserContext";
+import "../styles/common.css";
 
 const ProfilePage: React.FC = () => {
   const { user, updateUser } = useUser();
@@ -58,37 +59,35 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Profilul Meu</h2>
 
       {profileImage && (
-        <img
-          src={profileImage}
-          alt="Poza de profil"
-          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-        />
+        <div className="profile-image-preview">
+          <img src={profileImage} alt="Avatar" className="avatar" />
+        </div>
       )}
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>Prenume:</label>
           <input
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Nume:</label>
           <input
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email:</label>
           <input value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <div>
+        <div className="form-group">
           <label>Parolă:</label>
           <input
             type="password"
@@ -96,7 +95,7 @@ const ProfilePage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>URL poză profil:</label>
           <input
             value={profileImage}

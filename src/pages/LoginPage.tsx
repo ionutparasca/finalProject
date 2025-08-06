@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
+import "../styles/common.css";
 
 const schema = z.object({
   email: z.string().email("Email invalid"),
@@ -65,7 +66,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -76,7 +77,7 @@ const LoginPage: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          {errors.email && <p>{errors.email}</p>}
         </div>
         <div>
           <label>Parolă:</label>
@@ -86,7 +87,7 @@ const LoginPage: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
           />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+          {errors.password && <p>{errors.password}</p>}
         </div>
         <button type="submit">Autentificare</button>
       </form>

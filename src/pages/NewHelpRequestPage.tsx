@@ -2,19 +2,71 @@ import React, { useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import type { HelpRequest } from "../types/helpRequest";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import "../styles/common.css";
+
+type Category = {
+  value: string;
+  label: string;
+  subcategories: string[];
+};
+
+const categories: Category[] = [
+  {
+    value: "Food",
+    label: "🍞 Mâncare",
+    subcategories: ["Cumpărături", "Livrare", "Masă caldă"],
+  },
+  {
+    value: "Transport",
+    label: "🚌 Transport",
+    subcategories: [
+      "Transport local",
+      "Însotire la spital",
+      "Deplasare urgentă",
+    ],
+  },
+  {
+    value: "Housing",
+    label: "🏠 Cazare",
+    subcategories: [
+      "Adăpost temporar",
+      "Cazare de urgență",
+      "Ajutor pentru chirie",
+    ],
+  },
+  {
+    value: "Health",
+    label: "🏥 Sănătate",
+    subcategories: [
+      "Programare medic",
+      "Ridicare rețetă",
+      "Îngrijire la domiciliu",
+    ],
+  },
+  {
+    value: "Education",
+    label: "📚 Educație",
+    subcategories: ["Ajutor teme", "Traduceri", "Cursuri online"],
+  },
+  {
+    value: "Other",
+    label: "❓ Altceva",
+    subcategories: [],
+  },
+];
 
 const NewHelpRequestPage: React.FC = () => {
   const { user } = useUser();
-  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Food");
+  const [subcategory, setSubcategory] = useState("");
+
+  const selectedCategory = categories.find((cat) => cat.value === category);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!user) return;
 
     const newRequest: HelpRequest = {
@@ -38,7 +90,11 @@ const NewHelpRequestPage: React.FC = () => {
 
       if (!res.ok) throw new Error("Eroare la trimiterea cererii.");
 
-      navigate("/my-requests"); // 🔁 Redirecționare după trimitere
+      alert("Cerere trimisă cu succes!");
+      setTitle("");
+      setDescription("");
+      setCategory("Food");
+      setSubcategory("");
     } catch (err) {
       console.error(err);
       alert("A apărut o eroare.");
@@ -48,10 +104,10 @@ const NewHelpRequestPage: React.FC = () => {
   if (!user) return <p>Trebuie să fii logat pentru a accesa această pagină.</p>;
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Trimite o cerere de ajutor</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>Titlu:</label>
           <input
             value={title}
@@ -59,7 +115,8 @@ const NewHelpRequestPage: React.FC = () => {
             required
           />
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Descriere:</label>
           <textarea
             value={description}
@@ -67,31 +124,41 @@ const NewHelpRequestPage: React.FC = () => {
             required
           />
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Categorie:</label>
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
+            onChange={(e) => {
+              setCategory(e.target.value);
+              setSubcategory("");
+            }}
           >
-            <option value="food">🍞 Alimente și gătit</option>
-            <option value="transport">🚗 Transport și deplasări</option>
-            <option value="housing">🏠 Cazare și locuință</option>
-            <option value="health">💊 Sănătate și medicamente</option>
-            <option value="companionship">
-              🤝 Însoțire / Ajutor emoțional
-            </option>
-            <option value="childcare">👶 Îngrijire copii</option>
-            <option value="pets">🐾 Ajutor cu animale</option>
-            <option value="paperwork">📝 Acte și documente</option>
-            <option value="technical">💻 Ajutor tehnic</option>
-            <option value="other">❓ Alt tip de ajutor</option>
+            {categories.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
           </select>
-          <p style={{ fontSize: "0.9em", color: "gray" }}>
-            Alege categoria care descrie cel mai bine tipul de ajutor de care ai
-            nevoie.
-          </p>
         </div>
+
+        {selectedCategory && selectedCategory.subcategories.length > 0 && (
+          <div className="form-group">
+            <label>Subcategorie:</label>
+            <select
+              value={subcategory}
+              onChange={(e) => setSubcategory(e.target.value)}
+            >
+              <option value="">Alege subcategoria</option>
+              {selectedCategory.subcategories.map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <button type="submit">Trimite</button>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { HelpRequest } from "../types/helpRequest";
 import { Link } from "react-router-dom";
+import "../styles/common.css";
 
 const HelpRequestsListPage: React.FC = () => {
   const [requests, setRequests] = useState<HelpRequest[]>([]);
@@ -24,28 +25,25 @@ const HelpRequestsListPage: React.FC = () => {
   if (requests.length === 0) return <p>Nu există nicio cerere trimisă.</p>;
 
   return (
-    <div>
+    <div className="list-container">
       <h2>Toate cererile trimise</h2>
-      <ul>
+      <ul className="help-request-list">
         {requests.map((request) => (
-          <li
-            key={request.id}
-            style={{
-              border: "1px solid #ccc",
-              marginBottom: "10px",
-              padding: "10px",
-            }}
-          >
+          <li key={request.id} className="help-request-card">
             <h3>{request.title}</h3>
             <p>{request.description}</p>
             <p>
               <strong>Trimis de:</strong> {request.userFirstName}{" "}
               {request.userLastName}
             </p>
-
-            {/* Butonul de detalii */}
+            <p>
+              <strong>Data:</strong>{" "}
+              {request.createdAt && !isNaN(Date.parse(request.createdAt))
+                ? new Date(request.createdAt).toLocaleString()
+                : "Dată indisponibilă"}
+            </p>
             <Link to={`/help-requests/${request.id}`}>
-              <button>Vezi detalii</button>
+              <button className="small-button">Vezi detalii</button>
             </Link>
           </li>
         ))}

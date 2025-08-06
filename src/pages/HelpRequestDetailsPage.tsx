@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import type { HelpRequest } from "../types/helpRequest";
 import type { Comment } from "../types/comment";
+import "../styles/common.css";
 
 export function HelpRequestDetailsPage() {
   const { id } = useParams();
@@ -87,7 +88,7 @@ export function HelpRequestDetailsPage() {
   if (!helpRequest) return <p>Cererea nu a fost găsită.</p>;
 
   return (
-    <div>
+    <div className="details-container">
       <h2>{helpRequest.title}</h2>
       <p>{helpRequest.description}</p>
 
@@ -97,26 +98,18 @@ export function HelpRequestDetailsPage() {
       {comments.length === 0 ? (
         <p>Nu există comentarii încă.</p>
       ) : (
-        <ul>
+        <ul className="comment-list">
           {comments.map((comment) => (
-            <li
-              key={comment.id}
-              style={{
-                display: "flex",
-                gap: "10px",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
+            <li key={comment.id} className="comment-item">
               {comment.authorImage && (
                 <img
                   src={comment.authorImage}
                   alt="avatar"
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  className="comment-avatar"
                 />
               )}
               <div>
-                <p style={{ marginBottom: "0.25rem" }}>
+                <p className="comment-author">
                   <strong>{comment.authorName}</strong> —{" "}
                   <small>
                     {new Date(comment.createdAt).toLocaleString("ro-RO", {
@@ -127,7 +120,10 @@ export function HelpRequestDetailsPage() {
                 </p>
                 <p>{comment.text}</p>
                 {comment.authorId === user?.id && (
-                  <button onClick={() => handleDeleteComment(comment.id)}>
+                  <button
+                    className="delete-comment-btn"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
                     🗑️ Șterge
                   </button>
                 )}
@@ -137,13 +133,12 @@ export function HelpRequestDetailsPage() {
         </ul>
       )}
 
-      <div style={{ marginTop: "1em" }}>
+      <div className="comment-form">
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Scrie un comentariu..."
           rows={3}
-          style={{ width: "100%", maxWidth: "500px" }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
@@ -151,7 +146,6 @@ export function HelpRequestDetailsPage() {
             }
           }}
         />
-        <br />
         <button onClick={handleAddComment} disabled={!newComment.trim()}>
           Trimite comentariul
         </button>

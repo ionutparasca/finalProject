@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import type { HelpRequest } from "../types/helpRequest";
 import { Link } from "react-router-dom";
+import "../styles/common.css";
 
 const MyHelpRequestsPage: React.FC = () => {
   const { user } = useUser();
@@ -70,38 +71,51 @@ const MyHelpRequestsPage: React.FC = () => {
     }
   };
 
-  if (!user) return <p>Trebuie să fii logat pentru a vedea această pagină.</p>;
+  if (!user)
+    return (
+      <p className="center-text">
+        Trebuie să fii logat pentru a vedea această pagină.
+      </p>
+    );
 
   return (
-    <div>
+    <div className="list-container">
       <h2>Cererile Mele</h2>
       {myRequests.length === 0 ? (
         <p>Nu ai trimis nicio cerere.</p>
       ) : (
-        <ul>
+        <ul className="request-list">
           {myRequests.map((req) => (
-            <li key={req.id}>
+            <li key={req.id} className="request-card">
               {editingId === req.id ? (
                 <>
                   <input
                     value={editedTitle}
                     onChange={(e) => setEditedTitle(e.target.value)}
                   />
-                  <input
+                  <textarea
                     value={editedDescription}
                     onChange={(e) => setEditedDescription(e.target.value)}
+                    rows={3}
                   />
-                  <button onClick={() => handleUpdate(req.id)}>Salvează</button>
-                  <button onClick={() => setEditingId(null)}>Anulează</button>
+                  <div className="button-group">
+                    <button onClick={() => handleUpdate(req.id)}>
+                      Salvează
+                    </button>
+                    <button onClick={() => setEditingId(null)}>Anulează</button>
+                  </div>
                 </>
               ) : (
                 <>
-                  <strong>{req.title}</strong> - {req.description}
-                  <Link to={`/help-requests/${req.id}`}>
-                    <button>Vezi detalii</button>
-                  </Link>
-                  <button onClick={() => handleEdit(req)}>Editează</button>
-                  <button onClick={() => handleDelete(req.id)}>Șterge</button>
+                  <strong>{req.title}</strong>
+                  <p>{req.description}</p>
+                  <div className="button-group">
+                    <Link to={`/help-requests/${req.id}`}>
+                      <button>Vezi detalii</button>
+                    </Link>
+                    <button onClick={() => handleEdit(req)}>Editează</button>
+                    <button onClick={() => handleDelete(req.id)}>Șterge</button>
+                  </div>
                 </>
               )}
             </li>

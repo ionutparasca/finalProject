@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import "../styles/common.css";
 
 const RegisterPage: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -21,7 +22,7 @@ const RegisterPage: React.FC = () => {
       lastName,
       email,
       password,
-      profileImage: profileImage || defaultAvatar, // 👈 aici folosim avatar implicit dacă e gol
+      profileImage: profileImage || defaultAvatar,
     };
 
     try {
@@ -44,9 +45,8 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Înregistrare</h2>
-
       <form onSubmit={handleSubmit}>
         <div>
           <label>Prenume:</label>
